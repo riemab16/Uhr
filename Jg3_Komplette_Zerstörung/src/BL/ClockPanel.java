@@ -55,8 +55,7 @@ public class ClockPanel extends JPanel implements Runnable{
         
         this.add(sec1);
         this.add(sec2);
-        
-        
+         
       }
 
     @Override

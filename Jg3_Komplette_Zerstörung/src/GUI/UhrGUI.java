@@ -4,9 +4,11 @@
  * and open the template in the editor.
  */
 package GUI;
-
+//Author Asus
 import BL.ClockPanel;
+import java.awt.GridLayout;
 import java.time.LocalTime;
+import javax.swing.JOptionPane;
 
 
 public class UhrGUI extends javax.swing.JFrame {
@@ -15,17 +17,28 @@ public class UhrGUI extends javax.swing.JFrame {
      * Creates new form UhrGUI
      */
     public UhrGUI() {
-        initComponents();
-   
-        ClockPanel cp1 = new ClockPanel(LocalTime.now());
+        initComponents();        
+        paLocal.setLayout(new GridLayout(3,1,3,3));       
+        LocalTime now = LocalTime.now();
+        
+        long d = Long.parseLong(JOptionPane.showInputDialog("Bitte Stundenverschiebung eingeben: "));
+        long p = Long.parseLong(JOptionPane.showInputDialog("Bitte Stundenverschiebung eingeben: "));
+        
+        String region1 = JOptionPane.showInputDialog("Bitte Region Nr.1 eingeben: ");
+        String region2 = JOptionPane.showInputDialog("Bitte Region Nr. 2 eingeben: ");
+        
+        ClockPanel cp1 = new ClockPanel(now);
         paLocal.add(cp1);
         
-        ClockPanel cp2 = new ClockPanel(LocalTime.now());
-        paSanFran.add(cp2);
+        ClockPanel cp2 = new ClockPanel(now.plusHours(d));
+        paLocal.add(cp2);
         
-        ClockPanel cp3 = new ClockPanel(LocalTime.now());
-        paMoskau.add(cp3);
+        ClockPanel cp3 = new ClockPanel(now.plusHours(p));
+        paLocal.add(cp3);
         
+        lbRegion1.setText(region1);
+        lbRegion2.setText(region2);
+   
         new Thread(cp1).start();
         new Thread(cp2).start();
         new Thread(cp3).start();
@@ -45,10 +58,8 @@ public class UhrGUI extends javax.swing.JFrame {
         paLocal = new javax.swing.JPanel();
         paNamen = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        paSanFran = new javax.swing.JPanel();
-        paMoskau = new javax.swing.JPanel();
+        lbRegion1 = new javax.swing.JLabel();
+        lbRegion2 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -65,51 +76,25 @@ public class UhrGUI extends javax.swing.JFrame {
 
         paLocal.setLayout(new java.awt.GridLayout(1, 1));
 
-        jLabel1.setText("                                 Local");
-
-        jLabel2.setText("                      San Francisco");
-
-        jLabel3.setText("                               Moskau");
+        jLabel1.setText("Local");
 
         javax.swing.GroupLayout paNamenLayout = new javax.swing.GroupLayout(paNamen);
         paNamen.setLayout(paNamenLayout);
         paNamenLayout.setHorizontalGroup(
             paNamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lbRegion1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+            .addComponent(lbRegion2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         paNamenLayout.setVerticalGroup(
             paNamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paNamenLayout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lbRegion1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lbRegion2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-        );
-
-        javax.swing.GroupLayout paSanFranLayout = new javax.swing.GroupLayout(paSanFran);
-        paSanFran.setLayout(paSanFranLayout);
-        paSanFranLayout.setHorizontalGroup(
-            paSanFranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        paSanFranLayout.setVerticalGroup(
-            paSanFranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 95, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout paMoskauLayout = new javax.swing.GroupLayout(paMoskau);
-        paMoskau.setLayout(paMoskauLayout);
-        paMoskauLayout.setHorizontalGroup(
-            paMoskauLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        paMoskauLayout.setVerticalGroup(
-            paMoskauLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -119,21 +104,13 @@ public class UhrGUI extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(paNamen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(paLocal, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
-                    .addComponent(paSanFran, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(paMoskau, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(paLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(paNamen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(paLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(paSanFran, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(paMoskau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(paLocal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -176,12 +153,10 @@ public class UhrGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lbRegion1;
+    private javax.swing.JLabel lbRegion2;
     private javax.swing.JPanel paLocal;
-    private javax.swing.JPanel paMoskau;
     private javax.swing.JPanel paNamen;
-    private javax.swing.JPanel paSanFran;
     // End of variables declaration//GEN-END:variables
 }

@@ -43,8 +43,8 @@ public class ClockPanel extends JPanel implements Runnable{
         dp1 = new JLabel(new ImageIcon("bilder/doppelpunkt.PNG"));
         dp2 = new JLabel(new ImageIcon("bilder/doppelpunkt.PNG"));
         
-        this.add(sec1);
-        this.add(sec2);
+        this.add(hour1);
+        this.add(hour2);
 
         this.add(dp1);
         
@@ -53,15 +53,65 @@ public class ClockPanel extends JPanel implements Runnable{
 
         this.add(dp2);
         
-        this.add(hour1);
-        this.add(hour2);
+        this.add(sec1);
+        this.add(sec2);
+        
+        
       }
 
     @Override
     public void run() {
-        
+        while(true){
+            localtime = localtime.plusSeconds(1);
+            draw();
+            try{
+                Thread.sleep(1000);
+            }
+            catch(Exception ex){
+
+            }
+        }
     }
     
+    public void draw(){
+        hour1.setIcon(logic(localtime.getHour()/10));
+        hour2.setIcon(logic(localtime.getHour()%10));
+        dp1.setIcon(logic(10));
+        min1.setIcon(logic(localtime.getMinute()/10));
+        min2.setIcon(logic(localtime.getMinute()%10));
+        dp2.setIcon(logic(10));
+        sec1.setIcon(logic(localtime.getSecond()/10));
+        sec2.setIcon(logic(localtime.getSecond()%10));
+    }
+    
+    public ImageIcon logic(int z1){
+        switch(z1){
+            case 0:
+                return getIcon(z1); 
+            case 1:
+                return getIcon(z1);
+            case 2:
+                return getIcon(z1);
+            case 3:
+                return getIcon(z1);
+            case 4:
+                return getIcon(z1);
+            case 5:
+                return getIcon(z1);
+            case 6:
+                return getIcon(z1);
+            case 7:
+                return getIcon(z1);
+            case 8:
+                return getIcon(z1);
+            case 9:
+                return getIcon(z1);
+            case 10:
+                return new ImageIcon("bilder/doppelpunkt.PNG");
+            default: return getIcon(1);
+        }
+        
+    }
     private ImageIcon getIcon(int z){
         return new ImageIcon("bilder/" + z + ".PNG");
     }
